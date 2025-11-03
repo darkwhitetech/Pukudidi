@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puku Didi Foundation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: #f8f5f0; /* Ensure body has a consistent light background */
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(135deg, #1e7e34 0%, #28a745 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px 0; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            height: 90px; 
+            width: auto;  
+            object-fit: contain;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #1e7e34;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #28a745;
+        }
+
+        /* Donate Button in Nav Bar (Green/White) */
+        .donate-btn {
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            color: white; 
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.4); 
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
+        }
+
+        /* --- Hero Slider --- */
+        .hero-slider {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Donate Button in Hero Section (Green/White) */
+        .hero-btn {
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            color: white; 
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.4); 
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
+        }
+
+        /* Slider Indicators */
+        .slider-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 50px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+
+        /* Slider Navigation Arrows */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 3;
+        }
+
+        .slider-nav:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .slider-nav.prev {
+            left: 20px;
+        }
+
+        .slider-nav.next {
+            right: 20px;
+        }
+        
+        /* --- Core Activities Section --- */
+        .core-activities-section {
+            background-color: #f8f5f0; 
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .activity-header {
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .activity-header .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            position: relative;
+            padding-left: 120px; 
+        }
+        
+        .activity-header h2 {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .activity-header p {
+            font-size: 16px;
+            color: #666;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .trusted-badge {
+            position: absolute;
+            left: 0; 
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .trusted-badge img {
+            width: 100px; 
+            height: auto;
+            opacity: 0.6; 
+        }
+
+        .activities-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .video-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .play-button {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: #dc3545; 
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .play-button::before {
+            content: '▶';
+            color: white;
+            font-size: 24px;
+            transform: translateX(3px); 
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            background-color: #c82333;
+        }
+
+        .activity-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            min-width: 300px;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .grid-item .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #28a745; 
+        }
+
+        .grid-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .explore-btn-container {
+            margin-top: 60px;
+        }
+
+        .explore-btn {
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            color: white; 
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.4); 
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
+        }
+
+        /* --- Donation Impact Section --- */
+        .donation-impact-section {
+            padding: 0px 20px;
+            text-align: center;
+        }
+
+        .impact-header h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .impact-header p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .impact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .impact-card {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .impact-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .impact-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: white;
+        }
+
+        .impact-overlay h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .impact-meta {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .impact-meta div {
+            margin-top: 5px;
+        }
+        
+        /* --- Office Location Section --- */
+        .location-section {
+            background-color: #f8f5f0; 
+            padding: 100px 20px;
+        }
+
+        .location-card-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            background-color: white; 
+        }
+
+        .map-container {
+            flex: 1;
+            min-width: 40%;
+            height: 450px;
+            background-color: #eee;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .info-container {
+            flex: 1;
+            min-width: 40%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #f9f9f9; 
+        }
+
+        .info-container h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info-container p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .office-details {
+            margin-bottom: 30px;
+        }
+
+        .office-details strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .office-details span {
+            display: block;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .reserve-btn {
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            color: white; 
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.4); 
+        }
+
+        .reserve-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
+        }
+
+
+        /* -------------------------------------- */
+        /* --- Footer Section --- */
+        .footer-section {
+            background-color: #1a1a1a; /* Very dark background */
+            color: #f0f0f0; /* Light text for contrast */
+            padding: 60px 20px 20px 20px;
+            font-size: 15px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px; /* Minimum width for columns before wrapping */
+            margin-bottom: 30px;
+        }
+
+        .footer-col.about-col {
+            min-width: 300px; /* Give more space to the about column */
+        }
+
+        .footer-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            height: 100px; /* Adjust as needed for your logo */
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .footer-col h3 {
+            font-size: 22px;
+            color: #28a745; /* Green title */
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .footer-col p, .footer-col address {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .footer-col address {
+            font-style: normal; /* Remove italic from address */
+        }
+
+        .footer-col a {
+            color: #f0f0f0;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block; /* Make links block level for better spacing */
+            margin-bottom: 10px;
+        }
+
+        .footer-col a:hover {
+            color: #28a745; /* Green hover effect */
+        }
+
+        .footer-col .contact-item {
+            display: flex;
+            align-items: flex-start; /* Align icon to top of text */
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-col .contact-item i {
+            color: #28a745; /* Green icons */
+            font-size: 18px;
+            margin-top: 3px;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social-icons a {
+            color: #f0f0f0;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .footer-social-icons a:hover {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 20px auto 0 auto;
+            text-align: center;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .footer-bottom a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: #28a745;
+        }
+
+        /* -------------------------------------- */
+        /* --- Responsive Design (All Sections) --- */
+        /* -------------------------------------- */
+
+        /* Tablet/Larger Mobile View (768px and down) */
+        @media (max-width: 768px) {
+            
+            /* TOP BAR */
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            /* NAVIGATION */
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                display: none;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .logo-image {
+                height: 70px; 
+            }
+
+            /* HERO */
+            .hero-slider {
+                height: 500px;
+            }
+            .hero-content h1 {
+                font-size: 48px; 
+            }
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            /* CORE ACTIVITIES */
+            .core-activities-section {
+                padding: 60px 15px;
+            }
+            .activity-header .header-text { 
+                padding-left: 0; 
+                align-items: center; 
+                text-align: center;
+            }
+            .trusted-badge { 
+                position: static; 
+                transform: none;
+                margin-bottom: 20px; 
+            }
+            .activities-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .video-card, .activity-grid {
+                width: 100%;
+                max-width: 400px; 
+            }
+            .activity-grid {
+                grid-template-columns: 1fr; 
+            }
+            
+            /* DONATION IMPACT */
+            .donation-impact-section {
+                padding: 60px 15px;
+            }
+            .impact-header h2 {
+                font-size: 36px;
+            }
+            .impact-grid {
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+            .impact-card img {
+                height: 200px;
+            }
+
+            /* OFFICE LOCATION */
+            .location-section {
+                padding: 50px 15px;
+            }
+            .location-card-wrapper {
+                flex-direction: column; 
+            }
+            .map-container {
+                height: 350px;
+            }
+            .info-container {
+                padding: 30px;
+                text-align: center;
+            }
+            .info-container h2 {
+                font-size: 30px;
+            }
+            .info-container p {
+                font-size: 16px;
+            }
+
+            /* FOOTER */
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            .footer-col {
+                min-width: unset; /* Remove min-width constraint */
+                width: 100%;
+            }
+            .footer-col.about-col {
+                 min-width: unset;
+            }
+            .footer-logo-container,
+            .footer-col h3,
+            .footer-col p,
+            .footer-col address,
+            .footer-col .contact-item,
+            .footer-social-icons {
+                margin-left: auto;
+                margin-right: auto; /* Center block elements */
+                text-align: center;
+                justify-content: center; /* Center flex items */
+            }
+            .footer-col .contact-item {
+                flex-direction: row; /* Keep icon and text inline */
+                justify-content: center;
+            }
+            .footer-social-icons {
+                justify-content: center;
+            }
+            .footer-bottom {
+                text-align: center;
+                padding-top: 15px;
+            }
+        }
+
+        /* Mobile Phone View (480px and down) */
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 55px; 
+            }
+            
+            /* HERO */
+            .hero-slider {
+                height: 400px; 
+            }
+            .hero-content h1 {
+                font-size: 32px; 
+            }
+            .hero-content p {
+                font-size: 14px;
+            }
+            .hero-btn {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            /* CORE ACTIVITIES */
+            .activity-header h2 {
+                font-size: 30px;
+            }
+            .video-card {
+                height: 200px;
+            }
+            .play-button {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+
+            /* DONATION IMPACT */
+            .impact-header h2 {
+                font-size: 30px;
+            }
+
+            /* OFFICE LOCATION */
+            .map-container {
+                height: 200px; 
+            }
+            .reserve-btn {
+                width: 100%; 
+            }
+
+            /* FOOTER */
+            .footer-section {
+                padding: 40px 15px 15px 15px;
+            }
+            .footer-col h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact-info">
+                <div class="contact-item single-line-contact">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <span>Talk with us: +202-555-0167</span>
+                    <span class="separator"> | </span>
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Send us message: info@yourmail.com</span>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+
+    <nav>
+        <div class="nav-content">
+            <a href="#home" class="logo">
+                <img src="image.png" alt="Puku Didi Foundation Logo" class="logo-image">
+            </a>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#what-we-do">WHAT WE DO</a></li>
+                <li><a href="#gallery">GALLERY</a></li>
+                <li><a href="donatenow/donatenow.html" class="donate-btn">DONATE NOW</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero-slider">
+        <div class="slide active" style="background-image: url('IMG_5157.jpg');">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Your small help<br>make the world<br>better</h1>
+                    <p>Holistically restore superior web services vis-a-vis collaborative channel. Dramatically maximize low-risk or high-yield product without value-added materials.</p>
+                    <a href="donatenow/donatenow.html" class="hero-btn">Donate Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('Screenshot 2025-11-03 at 10.13.03.jpeg');">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Transform Lives<br>Through<br>Education</h1>
+                    <p>Every child deserves access to quality education and opportunities to thrive. Your support makes this dream a reality.</p>
+                    <a href="#donate" class="hero-btn">Donate Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="slide" style="background-image: url('IMG_EA2C203405D4-1.jpeg');">
+            <div class="slide-overlay">
+                <div class="hero-content">
+                    <h1>Building Hope<br>Creating<br>Futures</h1>
+                    <p>Join us in our mission to provide resources, care, and opportunities for children in need across communities.</p>
+                    <a href="#donate" class="hero-btn">Donate Now</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="slider-nav prev" onclick="changeSlide(-1)">‹</button>
+        <button class="slider-nav next" onclick="changeSlide(1)">›</button>
+
+        <div class="slider-indicators">
+            <div class="indicator active" onclick="goToSlide(0)"></div>
+            <div class="indicator" onclick="goToSlide(1)"></div>
+            <div class="indicator" onclick="goToSlide(2)"></div>
+        </div>
+    </section>
+
+    <section class="core-activities-section">
+        <div class="activity-header">
+            <div class="header-text">
+                <h2>Let's See Our <br>Core Activities</h2>
+                <div class="trusted-badge">
+                    <img src="image copy.png" alt="Trusted Since 1960">
+                </div>
+                <p>Holistically pontificate market positioning sources rather than stand-alone best practices.</p>
+            </div>
+        </div>
+
+        <div class="activities-content">
+            <div class="video-card">
+                <img src="Screenshot 2025-11-03 at 10.34.15.png" alt="Father and son fist bump" class="video-thumbnail">
+                
+            </div>
+            <div class="activity-grid">
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-bowl-food"></i></div>
+                    <span>Food and <br>Nutrition</span>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-book-open"></i></div>
+                    <span>Education <br>Development</span>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-users"></i></div>
+                    <span>Youth <br>Development</span>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-house-chimney"></i></div>
+                    <span>Permanent <br>Shelter Home</span>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <span>Health and <br>Medical care</span>
+                </div>
+                <div class="grid-item">
+                    <div class="icon"><i class="fa-solid fa-child"></i></div>
+                    <span>Child Rights <br>Governance</span>
+                </div>
+            </div>
+        </div>
+        <div class="explore-btn-container">
+            <a href="#activities" class="explore-btn">Explore More</a>
+        </div>
+    </section>
+
+    <section class="donation-impact-section">
+        <div class="impact-header">
+            <h2>Your Donation Impact</h2>
+            <p>Your monthly contribution will be spent on the essential needs of your sponsored child and his or her entire community</p>
+        </div>
+        
+        <div class="impact-grid">
+            <a href="#impact-1" class="impact-card">
+                <img src="image copy.png" alt="Iftar distribution">
+                <div class="impact-overlay">
+                    <h3>Iftar Destitution in African Poor Child</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#impact-2" class="impact-card">
+                <img src="Screenshot 2025-11-03 at 10.13.03.jpeg" alt="Hand Water pump installation">
+                <div class="impact-overlay">
+                    <h3>Hand Water pump Installation in desert area of Africa</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#impact-3" class="impact-card">
+                <img src="Screenshot 2025-11-03 at 10.34.15.png" alt="Child receiving education">
+                <div class="impact-overlay">
+                    <h3>Providing quality education to 20,000 children worldwide</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#impact-4" class="impact-card">
+                <img src="image.png" alt="Medical treatment for children">
+                <div class="impact-overlay">
+                    <h3>Providing Free Medical Treatment to Poor Children</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#impact-4" class="impact-card">
+                <img src="IMG_EA2C203405D4-1.jpeg" alt="Medical treatment for children">
+                <div class="impact-overlay">
+                    <h3>Providing Free Medical Treatment to Poor Children</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#impact-4" class="impact-card">
+                <img src="image copy.png" alt="Medical treatment for children">
+                <div class="impact-overlay">
+                    <h3>Providing Free Medical Treatment to Poor Children</h3>
+                    <div class="impact-meta">
+                        <div><i class="fa-regular fa-calendar-days"></i> 28 December 2023</div>
+                        <div><i class="fa-solid fa-location-dot"></i> Kaduna, Samaru, Nigeria</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="explore-btn-container">
+            <a href="#all-impacts" class="explore-btn">Explore More</a>
+        </div>
+    </section>
+
+    <section class="location-section">
+    <div class="location-card-wrapper">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.555986927361!2d85.31823121503933!3d27.70077978280036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1947b973c52b%3A0xc067210e75691079!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2sus!4v1666687000000!5m2!1sen!2sus" 
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="info-container">
+            <h2>Our Office Location</h2>
+            <p>
+                Visit our central office to meet the team, learn about our projects, and see how your donations make a direct difference in the community.
+            </p>
+            <div class="office-details">
+                <strong>Puku Didi Foundation Headquarters</strong>
+                <span>Kathmandu, Bagmati Province,</span>
+                <span>Nepal</span>
+            </div>
+            <a href="#contact-form" class="reserve-btn">CONTACT US NOW</a>
+        </div>
+    </div>
+</section>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-col about-col">
+                <div class="footer-logo-container">
+                    <img src="image.png" alt="Puku Didi Foundation Logo" class="footer-logo">
+                </div>
+                <p>Puku Didi Foundation is dedicated to empowering communities through education, healthcare, and sustainable development initiatives.</p>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <address>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Head Office: Bhanimandal, Lalitpur, Nepal</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Email: info@pukudidifoundation.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>Phone: +977 1-XXXXXXX</span>
+                    </div>
+                </address>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="#about">About Us</a>
+                <a href="#what-we-do">What We Do</a>
+                <a href="#impact">Our Impact</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact-form">Contact Us</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Support Us</h3>
+                <a href="#donate">Donate Now</a>
+                <a href="#volunteer">Become a Volunteer</a>
+                <a href="#partnership">Partnership</a>
+                <a href="#faqs">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2024 Puku Didi Foundation. All Rights Reserved. | </span>
+            <a href="#">Terms and Conditions</a>
+            <span> | </span>
+            <a href="#">Privacy Policy</a>
+            <span> | </span>
+            <a href="#">Sitemap</a>
+            <p>Powered by: <a href="http://thamel.com" target="_blank" rel="noopener noreferrer">thamel.com</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+            resetAutoSlide();
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+            resetAutoSlide();
+        }
+
+        function autoSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(autoSlide, 5000);
+        }
+
+        // Start auto-sliding
+        autoSlideInterval = setInterval(autoSlide, 5000);
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

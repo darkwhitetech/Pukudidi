@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puku Didi Foundation - Navigation and Footer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Green Color Palette */
+        :root {
+            --green-dark: #1e7e34;
+            --green-light: #28a745;
+            --dark-bg: #1a1a1a;
+            --text-light: #f0f0f0;
+        }
+
+        /* --- 1. Top Bar --- */
+        .top-bar {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+
+        /* --- 2. Navigation Bar --- */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px 0; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-image {
+            height: 90px; 
+            width: auto;  
+            object-fit: contain;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--green-dark);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-light);
+        }
+
+        .donate-btn {
+            background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+            color: white; 
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(30, 126, 52, 0.4); 
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
+        }
+
+        /* --- 3. Footer Section --- */
+        .footer-section {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 60px 20px 20px 20px;
+            font-size: 15px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap; 
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px; 
+            margin-bottom: 30px;
+        }
+
+        .footer-col.about-col {
+            min-width: 300px;
+        }
+
+        .footer-logo-container {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            height: 100px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .footer-col h3 {
+            font-size: 22px;
+            color: var(--green-light); 
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .footer-col p, .footer-col address {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .footer-col address {
+            font-style: normal;
+        }
+
+        .footer-col a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-col a:hover {
+            color: var(--green-light); 
+        }
+
+        .footer-col .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-col .contact-item i {
+            color: var(--green-light); 
+            font-size: 18px;
+            margin-top: 3px;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social-icons a {
+            color: var(--text-light);
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .footer-social-icons a:hover {
+            background-color: var(--green-light);
+            color: white;
+            border-color: var(--green-light);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 20px auto 0 auto;
+            text-align: center;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .footer-bottom a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--green-light);
+        }
+
+        /* -------------------------------------- */
+        /* --- Responsive Design (Nav & Footer) --- */
+        /* -------------------------------------- */
+
+        /* Tablet/Larger Mobile View (768px and down) */
+        @media (max-width: 768px) {
+            
+            /* TOP BAR */
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            /* NAVIGATION */
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                display: none; /* Hidden by default on mobile */
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            .logo-image {
+                height: 70px; 
+            }
+
+            /* FOOTER */
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            .footer-col {
+                min-width: unset;
+                width: 100%;
+            }
+            .footer-logo-container,
+            .footer-col h3,
+            .footer-col p,
+            .footer-col address,
+            .footer-col .contact-item,
+            .footer-social-icons {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                justify-content: center;
+            }
+            .footer-col .contact-item {
+                flex-direction: row; 
+                justify-content: center;
+            }
+            .footer-social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Phone View (480px and down) */
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 55px; 
+            }
+             .footer-section {
+                padding: 40px 15px 15px 15px;
+            }
+            .footer-col h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>Talk with us: +202-555-0167</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>Send us message: info@yourmail.com</span>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="#">f</a>
+                <a href="#">𝕏</a>
+                <a href="#">in</a>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-content">
+            <a href="#home" class="logo">
+                <img src="image.png" alt="Puku Didi Foundation Logo" class="logo-image">
+            </a>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#what-we-do">WHAT WE DO</a></li>
+                <li><a href="#gallery">GALLERY</a></li>
+                <li><a href="#donate" class="donate-btn">DONATE NOW</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #f0f0f0;">
+        <h1>Main Content Goes Here</h1>
+    </div>
+    
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-col about-col">
+                <div class="footer-logo-container">
+                    <img src="image.png" alt="Puku Didi Foundation Logo" class="footer-logo">
+                </div>
+                <p>Puku Didi Foundation is dedicated to empowering communities through education, healthcare, and sustainable development initiatives.</p>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <address>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Head Office: Bhanimandal, Lalitpur, Nepal</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Email: info@pukudidifoundation.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>Phone: +977 1-XXXXXXX</span>
+                    </div>
+                </address>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="#about">About Us</a>
+                <a href="#what-we-do">What We Do</a>
+                <a href="#impact">Our Impact</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact-form">Contact Us</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Support Us</h3>
+                <a href="#donate">Donate Now</a>
+                <a href="#volunteer">Become a Volunteer</a>
+                <a href="#partnership">Partnership</a>
+                <a href="#faqs">FAQs</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2024 Puku Didi Foundation. All Rights Reserved. | </span>
+            <a href="#">Terms and Conditions</a>
+            <span> | </span>
+            <a href="#">Privacy Policy</a>
+            <span> | </span>
+            <a href="#">Sitemap</a>
+            <p>Powered by: <a href="http://thamel.com" target="_blank" rel="noopener noreferrer">thamel.com</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Mobile menu toggle script
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
