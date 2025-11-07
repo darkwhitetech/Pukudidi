@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puku Didi Foundation - Navigation and Footer</title>
+    <title>Puku Didi Foundation - Navigation, Gallery, and Footer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
        * {
@@ -76,7 +76,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 100; /* High z-index to prevent content from overlapping the nav */
         }
 
         .nav-content {
@@ -203,7 +203,7 @@
             color: var(--text-light);
             text-decoration: none;
             transition: color 0.3s;
-            display: block;
+            display: block; /* Default on desktop */
             margin-bottom: 10px;
         }
 
@@ -300,6 +300,7 @@
                 padding: 20px;
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                 display: none; /* Hidden by default on mobile */
+                z-index: 99; /* Lower than nav but above content */
             }
             .nav-links.active {
                 display: flex;
@@ -314,31 +315,43 @@
                 height: 70px; 
             }
 
-            /* FOOTER */
+            /* FOOTER FIXES: Ensure centering and no overlap */
             .footer-content {
                 flex-direction: column;
                 gap: 30px;
-                text-align: center;
             }
             .footer-col {
                 min-width: unset;
                 width: 100%;
+                text-align: center; /* Center text and inline elements */
+                margin-bottom: 30px;
             }
-            .footer-logo-container,
-            .footer-col h3,
-            .footer-col p,
-            .footer-col address,
-            .footer-col .contact-item,
-            .footer-social-icons {
+
+            .footer-logo-container {
+                display: flex;
+                justify-content: center;
                 margin-left: auto;
                 margin-right: auto;
-                text-align: center;
-                justify-content: center;
+                margin-bottom: 20px;
             }
+            
+            /* CRITICAL FIX: Change links to inline-block to center them */
+            .footer-col a {
+                display: inline-block; 
+                margin-bottom: 10px;
+            }
+            
+            /* Center the contact items container */
             .footer-col .contact-item {
+                display: flex;
                 flex-direction: row; 
                 justify-content: center;
+                align-items: flex-start;
+                margin-left: auto; 
+                margin-right: auto;
+                max-width: fit-content; 
             }
+            
             .footer-social-icons {
                 justify-content: center;
             }
@@ -354,6 +367,226 @@
             }
             .footer-col h3 {
                 font-size: 20px;
+            }
+        }
+
+        /* Main Content Styles */
+        body {
+            background: #ffffff;
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            /* Padding on body is unnecessary now since content is within wrapper */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Added a wrapper for the content that starts below the sticky nav */
+        .content-wrapper {
+             background-color: #f0f0f0; /* Keeping the background color */
+             padding: 40px 20px; /* Added padding here instead of body */
+             display: flex; /* Kept display flex/align-items for initial structure */
+             align-items: center; 
+             justify-content: center;
+             /* Removed height: 400px; THIS WAS THE CAUSE OF THE OVERLAP */
+        }
+        
+        /* The decorative background is now applied to the main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .container::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             bottom: 0;
+             background-image: 
+                 radial-gradient(circle at 20% 30%, rgba(76, 175, 80, 0.05) 1px, transparent 1px),
+                 radial-gradient(circle at 80% 70%, rgba(76, 175, 80, 0.05) 1px, transparent 1px),
+                 radial-gradient(circle at 40% 80%, rgba(76, 175, 80, 0.05) 1px, transparent 1px);
+             background-size: 400px 400px, 350px 350px, 450px 450px;
+             animation: sparkle 8s linear infinite;
+             pointer-events: none;
+             z-index: -1; /* Ensure the decorative background is behind content */
+        }
+
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+            letter-spacing: 0.08em;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+        }
+
+        .tagline {
+            color: #388E3C;
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .mission {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.2);
+        }
+
+        .mission h2 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .mission p {
+            color: #1B5E20;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 4px solid #4CAF50;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background: #ffffff;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-12px);
+            border-color: #2E7D32;
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(46, 125, 50, 0.95), rgba(46, 125, 50, 0.7));
+            padding: 25px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .overlay h3 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .overlay p {
+            color: #E8F5E9;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer-content-section { /* Renamed class to avoid confusion with actual footer */
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-radius: 15px;
+            border-top: 3px solid #4CAF50;
+        }
+
+        .footer-content-section h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .footer-content-section p {
+            color: #1B5E20;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+            }
+
+            .gallery-item img {
+                height: 250px;
+            }
+
+            .mission h2 {
+                font-size: 1.5rem;
+            }
+
+            .mission p {
+                font-size: 1rem;
             }
         }
     </style>
@@ -401,8 +634,121 @@
         </div>
     </nav>
     
-    <div style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #f0f0f0;">
-        <h1>Main Content Goes Here</h1>
+    <div class="content-wrapper">
+         <div class="container">
+            <div class="header">
+                <h1>OUR GALLERY</h1>
+                <p class="tagline">Empowering Women, Transforming Communities</p>
+            </div>
+
+            <div class="mission">
+                <h2>Our Mission</h2>
+                <p>We are dedicated to empowering women through education, skill development, and community support. Our non-profit organization believes in creating opportunities for women to discover their potential, develop their talents, and lead meaningful lives that inspire others.</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500" alt="Women Leadership Workshop">
+                    <div class="overlay">
+                        <h3>Leadership Workshop</h3>
+                        <p>Empowering women with leadership skills and confidence to lead in their communities</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500" alt="Education Program">
+                    <div class="overlay">
+                        <h3>Education Program</h3>
+                        <p>Providing access to quality education and learning opportunities for all women</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=500" alt="Skills Training">
+                    <div class="overlay">
+                        <h3>Skills Training</h3>
+                        <p>Hands-on training programs to help women develop practical and marketable skills</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" alt="Community Building">
+                    <div class="overlay">
+                        <h3>Community Building</h3>
+                        <p>Creating supportive networks where women can share experiences and grow together</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500" alt="Mentorship">
+                    <div class="overlay">
+                        <h3>Mentorship Program</h3>
+                        <p>Connecting experienced professionals with emerging women leaders</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" alt="Health Awareness">
+                    <div class="overlay">
+                        <h3>Health & Wellness</h3>
+                        <p>Promoting physical and mental health awareness among women</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500" alt="Entrepreneurship">
+                    <div class="overlay">
+                        <h3>Entrepreneurship</h3>
+                        <p>Supporting women entrepreneurs to start and grow their own businesses</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=500" alt="Technology Training">
+                    <div class="overlay">
+                        <h3>Tech Training</h3>
+                        <p>Bridging the digital divide through technology education and access</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500" alt="Public Speaking">
+                    <div class="overlay">
+                        <h3>Public Speaking</h3>
+                        <p>Building confidence and communication skills for effective advocacy</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?w=500" alt="Art & Creativity">
+                    <div class="overlay">
+                        <h3>Creative Expression</h3>
+                        <p>Encouraging women to explore their creativity and artistic talents</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500" alt="Teamwork">
+                    <div class="overlay">
+                        <h3>Team Collaboration</h3>
+                        <p>Fostering collaboration and teamwork among women leaders</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=500" alt="Celebrations">
+                    <div class="overlay">
+                        <h3>Celebrating Success</h3>
+                        <p>Recognizing achievements and milestones of women in our community</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-content-section">
+                <h3>Join Our Mission</h3>
+                <p>Together, we can create lasting change. Every woman empowered is a step toward a more equitable and just world. Join us in our mission to uplift, educate, and empower women everywhere.</p>
+            </div>
+        </div>
     </div>
     
     <footer class="footer-section">

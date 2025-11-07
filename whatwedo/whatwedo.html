@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puku Didi Foundation - Navigation and Footer</title>
+    <title>Full-Width Classy Header, Challenges, and Tidy Footer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
+
+        #tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    pointer-events: none;
+    display: none;
+    z-index: 9999;
+}
+
+
+        
+
+        
        * {
             margin: 0;
             padding: 0;
@@ -15,6 +32,12 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
+            /* Padding increased to accommodate fixed header elements */
+            padding-top: 160px; 
+            background-color: #f0f0f0; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         /* Green Color Palette */
@@ -23,14 +46,27 @@
             --green-light: #28a745;
             --dark-bg: #1a1a1a;
             --text-light: #f0f0f0;
+            /* New Strategy Palette */
+            --strategy-primary: #2e7d32;
+            --strategy-light: #e8f5e9;
+            --strategy-medium: #66bb6a;
+        }
+        
+        /* Main content wrapper to push footer to the bottom */
+        .main-wrapper {
+            flex-grow: 1; 
         }
 
-        /* --- 1. Top Bar --- */
+        /* --- 1. Top Bar & Navigation (Existing Styles) --- */
         .top-bar {
             background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
             color: white;
             padding: 10px 0;
-            font-size: 14px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 101; 
         }
 
         .top-bar-content {
@@ -69,15 +105,33 @@
             opacity: 0.7;
         }
 
-        /* --- 2. Navigation Bar --- */
+        /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.98);
             padding: 20px 0; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
+            position: fixed;
+            top: 40px; 
+            left: 0;
+            right: 0;
             z-index: 100;
         }
+        
+        /* Media Queries for fixed headers - Adjusted padding values */
+        @media (max-width: 768px) {
+             body { 
+                padding-top: 140px; 
+            }
+             nav { top: 34px; }
+        }
+        @media (max-width: 480px) {
+             body { 
+                padding-top: 120px; 
+            }
+             .top-bar-content .contact-info { display: none; }
+             .top-bar-content { justify-content: center; }
+        }
+
 
         .nav-content {
             max-width: 1200px;
@@ -93,7 +147,7 @@
             width: auto;  
             object-fit: contain;
         }
-
+        
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -115,6 +169,24 @@
             gap: 25px;
             align-items: center;
             list-style: none;
+        }
+        
+        @media (max-width: 960px) {
+            .menu-toggle { display: flex; z-index: 102; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; 
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                padding: 20px 0;
+                gap: 15px;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links li { width: 100%; text-align: center; }
         }
 
         .nav-links a {
@@ -144,12 +216,362 @@
             box-shadow: 0 6px 20px rgba(30, 126, 52, 0.6); 
         }
 
-        /* --- 3. Footer Section --- */
+        /* --- HEADER STYLES --- */
+
+        .header-container {
+            width: 100%;
+            padding: 0; 
+            margin: 30px 0; 
+        }
+
+        .header-content {
+            background: linear-gradient(135deg, #186a23 0%, #28a745 100%);
+            border-radius: 0; 
+            padding: 20px 30px; 
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center; 
+            justify-content: space-between;
+        }
+        
+        .header-inner-content {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .header-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%); 
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; } 
+            50% { transform: scale(1.1); opacity: 0.4; }
+        }
+
+        .header-inner {
+            position: relative;
+            z-index: 1;
+            text-align: left; 
+            flex: 3; 
+            padding-right: 20px; 
+            min-width: 50%; 
+        }
+
+        .main-title {
+            color: #ffffff;
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            margin-bottom: 0; 
+            line-height: 1.2; 
+        }
+
+        .subtitle {
+            color: #d1e7dd; 
+            font-size: 1rem; 
+            font-weight: 400;
+            line-height: 1.3; 
+            margin: 5px 0 0 0; 
+            display: block; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+        
+        .icon-container {
+            flex-shrink: 0; 
+            width: 150px; 
+            display: flex;
+            justify-content: flex-end; 
+            gap: 15px; 
+            margin-top: 0; 
+        }
+
+        .icon-box {
+            background: rgba(255, 255, 255, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            border-radius: 8px; 
+            padding: 10px; 
+            transition: background 0.3s;
+        }
+        
+        .icon-box:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+
+        .icon-box svg {
+            width: 24px; 
+            height: 24px; 
+            fill: #fff; 
+        }
+
+        /* --- CHALLENGES SECTION STYLES --- */
+        .challenges-section {
+            padding: 80px 20px;
+            background-color: #f8fcf8; /* Light background for contrast */
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            color: #1e7e34;
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: #28a745;
+            font-size: 1.2rem;
+        }
+
+        .challenges-grid, .strategy-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* 3x3 Grid Layout */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px;
+        }
+
+        /* Card base styles (shared for Challenges and Strategy) */
+        .challenge-card, .strategy-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.5s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        /* --- CHALLENGE CARD SPECIFIC STYLES (Existing styles) --- */
+        .challenge-card:hover {
+            transform: translateY(-8px) scale(1.03); 
+            box-shadow: 0 15px 45px rgba(30, 126, 52, 0.4), 0 0 0 4px #28a745; 
+            background-color: #2e7d32; 
+        }
+
+        .challenge-card .icon-circle {
+            background: #e8f5e9;
+            width: 90px; height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.5s;
+        }
+
+        .challenge-card:hover .icon-circle { background: white; transform: scale(1.05); }
+
+        .challenge-card .icon-circle i { font-size: 40px; color: #1e7e34; transition: color 0.5s; }
+        .challenge-card:hover .icon-circle i { color: #28a745; }
+
+        .challenge-title { color: #1e7e34; }
+        .challenge-card:hover .challenge-title { color: white; }
+
+        .challenge-description { color: #666; }
+        .challenge-card:hover .challenge-description { color: #d8e5d9; }
+
+        .challenge-description {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-in-out, opacity 0.4s ease 0.2s, color 0.5s ease;
+        }
+        .challenge-card:hover .challenge-description {
+            opacity: 1;
+            max-height: 200px;
+            margin-top: 15px;
+        }
+
+        /* --- LONG-TERM STRATEGY SECTION STYLES (Adapted from original code) --- */
+        .strategy-section {
+            padding: 80px 20px;
+            background-color: var(--strategy-light); 
+        }
+        
+        .strategy-header h2 {
+            color: var(--strategy-primary);
+        }
+
+        .strategy-header p {
+            color: var(--strategy-medium);
+        }
+
+        .strategy-card {
+            border-radius: 20px;
+            padding: 50px 30px;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--strategy-medium) 0%, var(--strategy-primary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .strategy-card:hover::before {
+            opacity: 1;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.25);
+        }
+
+        .strategy-icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #a5d6a7 0%, var(--strategy-medium) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .strategy-card:hover .strategy-icon-wrapper {
+            background: white;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .strategy-icon-wrapper i {
+            font-size: 3.5em;
+            color: var(--strategy-primary);
+            transition: all 0.4s ease;
+        }
+
+        .strategy-card:hover .strategy-icon-wrapper i {
+            color: var(--strategy-medium);
+            transform: scale(1.1);
+        }
+
+        .strategy-title {
+            font-size: 1.4em;
+            color: var(--strategy-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            transition: color 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .strategy-card:hover .strategy-title {
+            color: white;
+        }
+
+        .strategy-description {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #666;
+            line-height: 1.6;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .strategy-card:hover .strategy-description {
+            opacity: 1;
+            max-height: 200px;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* --- MAP SECTION STYLES --- */
+        .map-section {
+            padding: 80px 20px;
+            background-color: #ffffff;
+        }
+
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .map-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #nepal-map {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            display: block;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .map-wrapper {
+                padding: 15px;
+            }
+            #nepal-map {
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #nepal-map {
+                min-height: 250px;
+            }
+        }
+
+        /* --- 4. Footer Section (Existing Styles) --- */
         .footer-section {
             background-color: var(--dark-bg);
             color: var(--text-light);
             padding: 60px 20px 20px 20px;
             font-size: 15px;
+            z-index: 50; 
+            margin-top: auto; 
         }
 
         .footer-content {
@@ -268,114 +690,69 @@
             color: var(--green-light);
         }
 
-        /* -------------------------------------- */
-        /* --- Responsive Design (Nav & Footer) --- */
-        /* -------------------------------------- */
-
-        /* Tablet/Larger Mobile View (768px and down) */
-        @media (max-width: 768px) {
-            
-            /* TOP BAR */
-            .top-bar-content {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
+        @media (max-width: 1024px) {
+            .challenges-grid, .strategy-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
+            .strategy-icon-wrapper {
+                width: 100px;
+                height: 100px;
             }
-            
-            /* NAVIGATION */
-            .menu-toggle {
-                display: flex;
+            .strategy-icon-wrapper i {
+                font-size: 3em;
             }
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                display: none; /* Hidden by default on mobile */
-            }
-            .nav-links.active {
-                display: flex;
-            }
-            .nav-links li {
-                width: 100%;
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #eee;
-            }
-            .logo-image {
-                height: 70px; 
-            }
-
-            /* FOOTER */
-            .footer-content {
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-            }
-            .footer-col {
-                min-width: unset;
-                width: 100%;
-            }
-            .footer-logo-container,
-            .footer-col h3,
-            .footer-col p,
-            .footer-col address,
-            .footer-col .contact-item,
-            .footer-social-icons {
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-                justify-content: center;
-            }
+        }
+                    @media (max-width: 768px) {
+            .footer-content { flex-direction: column; gap: 30px; }
+            .footer-col { min-width: unset; width: 100%; text-align: center; }
+            .footer-col a { display: inline-block; }
             .footer-col .contact-item {
                 flex-direction: row; 
                 justify-content: center;
+                max-width: fit-content;
+                margin: 0 auto 10px auto;
             }
-            .footer-social-icons {
-                justify-content: center;
+            .footer-social-icons { justify-content: center; }
+            .header-container { margin: 20px 0; } 
+            .header-content { padding: 15px 15px; flex-direction: row; justify-content: space-between; }
+            .main-title { font-size: 1.6rem; }
+            .subtitle { font-size: 0.8rem; }
+            .map-wrapper {
+                padding: 15px;
+            }
+            #nepal-map {
+                min-height: 300px;
             }
         }
-
-        /* Mobile Phone View (480px and down) */
-        @media (max-width: 480px) {
-            .logo-image {
-                height: 55px; 
+        @media (max-width: 600px) {
+            .section-header h2 { font-size: 2rem; }
+            .challenges-grid, .strategy-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-             .footer-section {
-                padding: 40px 15px 15px 15px;
-            }
-            .footer-col h3 {
-                font-size: 20px;
+            #nepal-map {
+                min-height: 250px;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="top-bar">
         <div class="top-bar-content">
             <div class="contact-info">
                 <div class="contact-item">
-                    <span>📞</span>
+                    <i class="fa-solid fa-phone"></i>
                     <span>Talk with us: +202-555-0167</span>
                 </div>
                 <div class="contact-item">
-                    <span>✉️</span>
+                    <i class="fa-solid fa-envelope"></i>
                     <span>Send us message: info@yourmail.com</span>
                 </div>
             </div>
             <div class="social-icons">
-                <a href="#">f</a>
-                <a href="#">𝕏</a>
-                <a href="#">in</a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
     </div>
@@ -385,7 +762,6 @@
             <a href="#home" class="logo">
                 <img src="image.png" alt="Puku Didi Foundation Logo" class="logo-image">
             </a>
-            
             <div class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -401,10 +777,185 @@
         </div>
     </nav>
     
-    <div style="height: 400px; display: flex; align-items: center; justify-content: center; background-color: #f0f0f0;">
-        <h1>Main Content Goes Here</h1>
+    <div class="main-wrapper">
+        <div class="header-container">
+            <div class="header-content">
+                <div class="header-inner-content">
+                    <div class="header-inner">
+                        <h1 class="main-title">Our Work in Action</h1>
+                        <p class="subtitle">
+                            Empowering communities through compassion, dedication, and meaningful action.
+                        </p>
+                    </div>
+                    
+                    <div class="icon-container">
+                        <div class="icon-box">
+                            <i class="fa-solid fa-heart" style="color: white; font-size: 24px;"></i>
+                        </div>
+                        <div class="icon-box">
+                            <i class="fa-solid fa-users-viewfinder" style="color: white; font-size: 24px;"></i>
+                        </div>
+                        <div class="icon-box">
+                            <i class="fa-solid fa-check" style="color: white; font-size: 24px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="challenges-section">
+            <div class="section-header challenges-header">
+                <h2>Challenges We Tackle</h2>
+                <p>Breaking barriers to girls' education</p>
+            </div>
+
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-ring"></i>
+                    </div>
+                    <h3 class="challenge-title">Child Marriage</h3>
+                    <p class="challenge-description">We work to prevent child marriages and ensure girls can complete their education, providing counseling and support to families in vulnerable communities.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <h3 class="challenge-title">Poverty</h3>
+                    <p class="challenge-description">Financial barriers prevent many girls from attending school. We provide scholarships, school supplies, and resources to help families overcome economic challenges.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="challenge-title">Safety and Violence</h3>
+                    <p class="challenge-description">We create safe pathways and transportation programs while advocating for safer school environments to protect girls from harassment and violence.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-person-chalkboard"></i>
+                    </div>
+                    <h3 class="challenge-title">Lack of Female Mentors</h3>
+                    <p class="challenge-description">We support training programs for women teachers and advocate for gender-balanced teaching staff to provide positive role models for girls.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="challenge-title">Low Value on Education</h3>
+                    <p class="challenge-description">Through community engagement and awareness campaigns, we work to change mindsets and demonstrate the transformative power of educating girls.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-restroom"></i>
+                    </div>
+                    <h3 class="challenge-title">Sanitation and Privacy</h3>
+                    <p class="challenge-description">We advocate for and help build gender-separated sanitation facilities in schools, ensuring dignity and safety for adolescent girls.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="challenge-title">Digital Divide and STEM</h3>
+                    <p class="challenge-description">We bridge the digital divide by providing girls with digital literacy training and access to STEM programs, preparing them for future economic opportunities.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+                    <h3 class="challenge-title">Distance to School</h3>
+                    <p class="challenge-description">We provide transportation solutions and support community schools to reduce travel time and make education accessible for girls in remote areas.</p>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-tags"></i>
+                    </div>
+                    <h3 class="challenge-title">Hidden School Costs</h3>
+                    <p class="challenge-description">Beyond tuition, we help cover costs of uniforms, books, and supplies, ensuring that no girl is held back from education due to hidden expenses.</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="strategy-section">
+             <div class="section-header strategy-header">
+                <h2>Our Long-Term Strategy</h2>
+                <p>Building a sustainable foundation for educational equity</p>
+            </div>
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="strategy-title">Skill Development</h2>
+                    <p class="strategy-description">Empowering girls with practical skills and vocational training for future careers and economic independence.</p>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2 class="strategy-title">Conducive Learning Environment</h2>
+                    <p class="strategy-description">Creating safe, inclusive, and supportive spaces that encourage girls to thrive academically and socially.</p>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h2 class="strategy-title">Mental & Physical Wellbeing</h2>
+                    <p class="strategy-description">Prioritizing health, nutrition, and mental wellness to ensure girls can focus on their education.</p>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h2 class="strategy-title">Leadership Values</h2>
+                    <p class="strategy-description">Fostering confidence, decision-making skills, and leadership qualities to create future change-makers.</p>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h2 class="strategy-title">Community Engagement</h2>
+                    <p class="strategy-description">Building partnerships with families and communities to support and sustain girls' education initiatives.</p>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-icon-wrapper">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h2 class="strategy-title">Quality Teaching</h2>
+                    <p class="strategy-description">Investing in trained educators and modern teaching methods to enhance learning outcomes for all girls.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAP SECTION -->
+        <div class="map-section">
+            <div class="section-header">
+                <h2>Where We Work</h2>
+                <p>
+Puku Didi Foundation started its journey from Sisout, Sarlahi - the ancestral home of Samriddhi. Sarlahi district ranks amongst the lowest in adult literacy (38%) and mean years of schooling (2.42 years). Sisout, a village in Sarlahi, it has the highest poverty rate in the district and has large pockets of underserved communities.</p>
+            </div>
+            <div class="map-container">
+                <object id="nepal-map" type="image/svg+xml" data="np.svg"></object>
+            </div>
+        </div>
     </div>
-    
+
+    <div id="tooltip"></div>
+
     <footer class="footer-section">
         <div class="footer-content">
             <div class="footer-col about-col">
@@ -467,7 +1018,6 @@
         </div>
     </footer>
 
-
     <script>
         // Mobile menu toggle script
         function toggleMenu() {
@@ -478,9 +1028,64 @@
         // Close menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('active');
+                if (window.innerWidth <= 960) {
+                     document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        const provinceNames = {
+            "NPBA": "Bagmati", 
+            "NPBH": "Bheri", 
+            "NPDH": "Dhawalagiri", 
+            "NPGA": "Gandaki", 
+            "NPJA": "Janakpur", 
+            "NPKA": "Karnali", 
+            "NPKO": "Bhojpur", 
+            "NPLU": "Lumbini", 
+            "NPMA": "Mahakali", 
+            "NPME": "Mechi", 
+            "NPNA": "Narayani", 
+            "NPRA": "Rapti", 
+            "NPSA": "Sagarmatha", 
+            "NPSE": "Seti"
+        };
+
+        const tooltip = document.getElementById('tooltip');
+
+        const obj = document.getElementById('nepal-map');
+        obj.addEventListener('load', () => {
+            const svgDoc = obj.contentDocument;
+            const paths = svgDoc.querySelectorAll('path, polygon, rect');
+
+            paths.forEach(p => {
+                const id = p.id;
+                const name = provinceNames[id] || id;
+
+                // Hover effect
+                p.addEventListener('mouseover', (e) => {
+                    p.style.fill = '#66b3ff';
+                    tooltip.style.display = 'block';
+                    tooltip.textContent = name;
+                });
+
+                p.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = e.pageX + 10 + 'px';
+                    tooltip.style.top = e.pageY + 10 + 'px';
+                });
+
+                p.addEventListener('mouseout', () => {
+                    p.style.fill = '';
+                    tooltip.style.display = 'none';
+                });
+
+                // Click effect
+                p.addEventListener('click', () => {
+                    alert('You clicked on: ' + name);
+                });
             });
         });
     </script>
+
 </body>
 </html>
