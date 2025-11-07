@@ -547,6 +547,8 @@
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             background: white;
+            /* Added object-fit: contain to help map scaling */
+            object-fit: contain; 
         }
 
         @media (max-width: 768px) {
@@ -941,7 +943,6 @@
             </div>
         </div>
 
-        <!-- MAP SECTION -->
         <div class="map-section">
             <div class="section-header">
                 <h2>Where We Work</h2>
@@ -966,126 +967,115 @@ Puku Didi Foundation started its journey from Sisout, Sarlahi - the ancestral ho
                 <div class="footer-social-icons">
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 
             <div class="footer-col">
-                <h3>Contact Info</h3>
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#what-we-do">What We Do</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Our Focus</h3>
+                <a href="#">Education Equity</a>
+                <a href="#">Health & Wellness</a>
+                <a href="#">Child Protection</a>
+                <a href="#">Leadership Programs</a>
+                <a href="#">Community Outreach</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
                 <address>
                     <div class="contact-item">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>Head Office: Bhanimandal, Lalitpur, Nepal</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>Email: info@pukudidifoundation.com</span>
+                        <span>Kathmandu, Nepal<br>P.O. Box 44600</span>
                     </div>
                     <div class="contact-item">
                         <i class="fa-solid fa-phone"></i>
-                        <span>Phone: +977 1-XXXXXXX</span>
+                        <span>+202-555-0167</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@yourmail.com</span>
                     </div>
                 </address>
-            </div>
-
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <a href="#about">About Us</a>
-                <a href="#what-we-do">What We Do</a>
-                <a href="#impact">Our Impact</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#contact-form">Contact Us</a>
-            </div>
-
-            <div class="footer-col">
-                <h3>Support Us</h3>
-                <a href="#donate">Donate Now</a>
-                <a href="#volunteer">Become a Volunteer</a>
-                <a href="#partnership">Partnership</a>
-                <a href="#faqs">FAQs</a>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>© 2024 Puku Didi Foundation. All Rights Reserved. | </span>
-            <a href="#">Terms and Conditions</a>
-            <span> | </span>
-            <a href="#">Privacy Policy</a>
-            <span> | </span>
-            <a href="#">Sitemap</a>
-            <p>Powered by: <a href="http://thamel.com" target="_blank" rel="noopener noreferrer">thamel.com</a></p>
+            &copy; 2025 Puku Didi Foundation. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
         </div>
     </footer>
-
+    
     <script>
-        // Mobile menu toggle script
+        // --- 1. Navigation Toggle Script ---
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 960) {
-                     document.getElementById('navLinks').classList.remove('active');
+        // --- 2. Nepal Map Tooltip Script ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mapObject = document.getElementById('nepal-map');
+            const tooltip = document.getElementById('tooltip');
+
+            mapObject.addEventListener('load', () => {
+                const svgDoc = mapObject.contentDocument;
+                if (!svgDoc) {
+                    console.error("SVG content document not loaded.");
+                    return;
                 }
-            });
-        });
+                const paths = svgDoc.querySelectorAll('path'); // Assuming provinces are <path> elements
 
-        const provinceNames = {
-            "NPBA": "Bagmati", 
-            "NPBH": "Bheri", 
-            "NPDH": "Dhawalagiri", 
-            "NPGA": "Gandaki", 
-            "NPJA": "Janakpur", 
-            "NPKA": "Karnali", 
-            "NPKO": "Bhojpur", 
-            "NPLU": "Lumbini", 
-            "NPMA": "Mahakali", 
-            "NPME": "Mechi", 
-            "NPNA": "Narayani", 
-            "NPRA": "Rapti", 
-            "NPSA": "Sagarmatha", 
-            "NPSE": "Seti"
-        };
+                paths.forEach(path => {
+                    // Assuming the province name is in the 'title' attribute or a custom data attribute
+                    const provinceName = path.getAttribute('title') || path.getAttribute('data-name') || path.id;
 
-        const tooltip = document.getElementById('tooltip');
+                    // Example: Highlight Sarlahi's province (usually Bagmati/Province 3 or Madhesh/Province 2)
+                    if (provinceName && (provinceName.toLowerCase().includes('madhesh') || provinceName.toLowerCase().includes('province 2'))) { 
+                        path.style.fill = '#ffcc00'; // Highlight the target area
+                        path.style.stroke = '#cc0000';
+                        path.style.strokeWidth = '1px';
+                    } else {
+                        path.style.fill = '#a5d6a7'; // Default color
+                    }
 
-        const obj = document.getElementById('nepal-map');
-        obj.addEventListener('load', () => {
-            const svgDoc = obj.contentDocument;
-            const paths = svgDoc.querySelectorAll('path, polygon, rect');
+                    path.style.transition = 'fill 0.3s, transform 0.2s';
+                    path.style.cursor = 'pointer';
 
-            paths.forEach(p => {
-                const id = p.id;
-                const name = provinceNames[id] || id;
+                    path.addEventListener('mouseover', (e) => {
+                        path.style.fill = '#2e7d32'; // Darker on hover
+                        tooltip.innerHTML = provinceName || 'Region';
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = `${e.pageX + 10}px`;
+                        tooltip.style.top = `${e.pageY - 30}px`;
+                    });
 
-                // Hover effect
-                p.addEventListener('mouseover', (e) => {
-                    p.style.fill = '#66b3ff';
-                    tooltip.style.display = 'block';
-                    tooltip.textContent = name;
-                });
+                    path.addEventListener('mousemove', (e) => {
+                        tooltip.style.left = `${e.pageX + 10}px`;
+                        tooltip.style.top = `${e.pageY - 30}px`;
+                    });
 
-                p.addEventListener('mousemove', (e) => {
-                    tooltip.style.left = e.pageX + 10 + 'px';
-                    tooltip.style.top = e.pageY + 10 + 'px';
-                });
-
-                p.addEventListener('mouseout', () => {
-                    p.style.fill = '';
-                    tooltip.style.display = 'none';
-                });
-
-                // Click effect
-                p.addEventListener('click', () => {
-                    alert('You clicked on: ' + name);
+                    path.addEventListener('mouseout', () => {
+                        tooltip.style.display = 'none';
+                        // Reset to original color
+                        if (provinceName && (provinceName.toLowerCase().includes('madhesh') || provinceName.toLowerCase().includes('province 2'))) {
+                            path.style.fill = '#ffcc00';
+                        } else {
+                            path.style.fill = '#a5d6a7';
+                        }
+                    });
                 });
             });
         });
+
     </script>
-
 </body>
 </html>
